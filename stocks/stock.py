@@ -12,8 +12,6 @@ from dotenv import load_dotenv
 from ta.momentum import RSIIndicator
 from ta.trend import MACD
 
-# AutoGen v0.4 (AgentChat)
-
 from autogen_agentchat.agents import AssistantAgent
 from autogen_agentchat.teams import RoundRobinGroupChat
 from autogen_ext.models.openai import OpenAIChatCompletionClient
@@ -21,9 +19,9 @@ from autogen_ext.models.openai import OpenAIChatCompletionClient
 
 
 
-# =========================
+
 # ENV / PAGE
-# =========================
+
 load_dotenv()
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "")
 
@@ -58,9 +56,9 @@ def _init_state():
 _init_state()
 
 
-# =========================
+
 # Data / Indicator Helpers
-# =========================
+
 def fetch_stock_data(symbol: str) -> Dict[str, Any]:
     """
     Pull price history (1y daily), fast info, and basic financial ratios if available.
@@ -175,9 +173,9 @@ def extract_fundamentals(fast: Dict[str, Any]) -> Dict[str, Any]:
     return out
 
 
-# =========================
+
 # Agent (LLM) Setup
-# =========================
+
 def build_agent() -> AssistantAgent:
     if st.session_state.model_client is None:
         st.session_state.model_client = OpenAIChatCompletionClient(
@@ -232,9 +230,9 @@ def ask_agent(agent: AssistantAgent, payload: Dict[str, Any]) -> str:
     return loop.run_until_complete(_ask_agent_async(agent, payload))
 
 
-# =========================
+
 # UI
-# =========================
+
 col = st.columns([2, 1, 1])
 with col[0]:
     symbol = st.text_input("Ticker symbol", value="", placeholder="e.g., AAPL")
@@ -335,4 +333,5 @@ if run_btn:
 
 # Footer / debug
 st.divider()
+
 st.caption("Data via yfinance. This is educational, not financial advice.")
